@@ -1,6 +1,6 @@
 name: pageview_navigation_panel
 description: Navigation panel with currentPage indicator for navigating a PageView while the indicator highlights above the current page
-version: 1.0.0
+version: 1.0.1
 author: Felix Müller
 homepage: https://github.com/f3l1x98/pageview_navigation_panel
 
