@@ -4,7 +4,7 @@ Widget for displaying the current page of a PageView and navigating said PageVie
 
 ## Example
 
-<img src="demo/demo.gif" width="400">
+![](demo/demo.gif)
 
 ```dart
 import 'package:flutter/material.dart';
