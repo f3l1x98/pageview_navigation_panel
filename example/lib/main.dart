@@ -31,11 +31,13 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
+    // add the listener inorder to update the ValueNotifier
     _pageController.addListener(() {
       _currentPageNotifier.value = _pageController.page;
     });
   }
 
+  /// construct the child of the button
   Widget _buildNavigationItem(String text, IconData icon) {
     return Column(
       children: [
@@ -45,6 +47,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// construct simple placeholder view for PageView
   Widget _buildViewWidget(String text) {
     return Center(
       child: Text('$text'),

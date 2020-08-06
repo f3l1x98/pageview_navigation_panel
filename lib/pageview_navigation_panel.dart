@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 
 class NavigationPanel extends StatefulWidget {
 
+  /// used for notifying about page changes
   final ValueNotifier<double> currentPageNotifier;
+  /// pageController of [PageView] for which this [NavigationPanel] is used
   final PageController pageController;
+  /// widgets to be placed as the children of the buttons ([buttonChildren.length] should equal the number of pages of the [PageView])
   final List<Widget> buttonChildren;
 
   final double panelHeight;
@@ -54,8 +57,10 @@ class NavigationPanel extends StatefulWidget {
 
 class _NavigationPanelState extends State<NavigationPanel> with SingleTickerProviderStateMixin {
 
+  /// Animation controller used for the indicator animation
   AnimationController _animationController;
 
+  /// current page of PageView
   double _currentPage = 0;
 
   @override
@@ -74,19 +79,21 @@ class _NavigationPanelState extends State<NavigationPanel> with SingleTickerProv
 
   @override
   void dispose() {
+    // clean listener
     widget.currentPageNotifier.removeListener(_handlePageChange);
 
     super.dispose();
   }
 
-
+  /// Listener for the ValueNotifier
+  /// updates [_currentPage] and starts animation of indicator
   void _handlePageChange() {
     _currentPage = widget.currentPageNotifier.value;
 
     _animationController.animateTo(_currentPage);
   }
 
-
+  /// method for building the "button" of the NavigationPanel
   Widget _buildViewElement(Widget view) {
     return InkWell(
       child: Container(
@@ -106,11 +113,17 @@ class _NavigationPanelState extends State<NavigationPanel> with SingleTickerProv
     );
   }
 
+  /// calculates the distance between two buttons
+  /// there are #buttons + 1 spaces between the buttons and the border
+  /// -> due to spaceEvenly each of these spaces has the same width
   double _getDistanceBetweenElements(double maxWidth) {
     double totalBtnLength = widget.buttonWidth * widget.buttonChildren.length;
     return (maxWidth - totalBtnLength) / (widget.buttonChildren.length + 1);
   }
 
+  /// method for building the indicator
+  /// essentially just a Container wrapped by an AnimationBuilder for the Transform
+  /// and an offset to skip the space between the left border and the first button
   Widget _buildIndicator(double maxWidth) {
     return Padding(
       padding: EdgeInsets.only(left: _getDistanceBetweenElements(maxWidth)),
